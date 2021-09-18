@@ -1,9 +1,5 @@
 # isAI (python backend)
-<<<<<<< HEAD
-
 ```
 pip install -r requirements.txt
 python main.py
 ```
-=======
->>>>>>> 2560356423044e0fcfe38f1f2a71918509e22a61
