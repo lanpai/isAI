@@ -1,5 +1,5 @@
 # isAI (python backend)
 ```
 pip install -r requirements.txt
-python main.py
+FLASK_APP=main flask run
 ```
