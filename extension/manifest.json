@@ -3,10 +3,13 @@
     "description": "Detecting fake contents",
     "version": "1.0.0",
     "manifest_version": 3,
-    "icons": {"128": "icon_128.png"},
+    "icons": {"16": "icon_16.png", "128": "icon_128.png"},
     "action": {
         "default_popup": "popup.html",
         "default_icon": "icon.png"
+    },
+    "background": {
+        "service_worker": "background.js"
     },
     "permissions": ["activeTab", "contextMenus"],
     "commands": {
