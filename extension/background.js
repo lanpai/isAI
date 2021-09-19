@@ -6,9 +6,6 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 
   chrome.contextMenus.onClicked.addListener(async (clickData) => {
-    // return console.log(clickData);
-    // console.log(tab);
-    
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, { to: "loading" });
     });
@@ -41,6 +38,7 @@ chrome.runtime.onInstalled.addListener(() => {
       type = "Text";
       console.log(response);
     }
+    
     // send the response details to content-script.js to render iframe
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {
@@ -52,3 +50,26 @@ chrome.runtime.onInstalled.addListener(() => {
     });
   });
 });
+
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.to === 'add') {
+      fetch('https://isAI.piyo.cafe/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ url: request.url, prob: request.prob })
+      });
+    }
+    else if (request.to === 'getAverage') {
+      fetch('https://isAI.piyo.cafe/getAverage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ url: request.url })
+      }).then(res => res.json())
+        .then(res => sendResponse(res));
+      return true;
+    }
+  });

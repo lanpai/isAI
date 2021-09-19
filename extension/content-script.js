@@ -1,3 +1,12 @@
+window.isAI_net = undefined;
+
+chrome.runtime.sendMessage({ to: 'getAverage', url: window.location.origin }, (res) => {
+  console.log(res);
+  window.isAI_net = res.avg;
+  window.isAI_count = res.count;
+});
+
+
 function initFrame(frame) {
   frame.seamless = true;
   frame.width = '500px';
@@ -25,7 +34,8 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     }
 
     frame.src = chrome.runtime.getURL(
-        `/stats.html?prob=${request.prob}&url=${request.pageUrl}&type=${request.type}`)
+        `/stats.html?prob=${request.prob}&net=${window.isAI_net}&size=${window.isAI_count}&url=${request.pageUrl}&type=${request.type}`)
+    chrome.runtime.sendMessage({ to: 'add', url: window.location.origin, prob: request.prob });
 
     if (isNew)
       document.body.prepend(frame);
