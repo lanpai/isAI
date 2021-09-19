@@ -5,7 +5,7 @@ chrome.runtime.onInstalled.addListener(() => {
     contexts: ["image", "video", "selection"],
   });
 
-  chrome.contextMenus.onClicked.addListener(function (clickData, tab) {
+  chrome.contextMenus.onClicked.addListener(async (clickData, tab) => {
     console.log(clickData);
     console.log(tab);
 
@@ -13,22 +13,16 @@ chrome.runtime.onInstalled.addListener(() => {
     if (clickData.mediaType === "image") {
       // converting "image source" (url) to "Base64".
       let url = clickData.srcUrl;
-      fetch(url)
-        .then((response) => response.blob())
-        .then((blob) => {
-          var data = new RawFormData();
-          data.append("data", blob, "file");
-          data.getOutputDeferred().then(function (formData) {
-            var xml = new XMLHttpRequest();
-            xml.setRequestHeader(
-              "Content-Type",
-              "multipart/form-data; boundary=" + data.getBoundary()
-            );
-            xml.setRequestHeader("Content-Length", formData.length);
-            xml.open("POST", "localhost:5000/validate/image");
-            xml.send(formData);
-          });
-        });
+      let blob = await (await fetch(url)).blob();
+      var data = new FormData();
+      data.append("data", blob, "file");
+      const response = await (
+        await fetch("http://localhost:5000/validate/image", {
+          method: "POST",
+          body: data,
+        })
+      ).json();
+      console.log(response);
     }
   });
 });
