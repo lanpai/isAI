@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>isAI()</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Oswald&family=Source+Code+Pro&display=swap" rel="preload" as="style">
+
+    <style>
+        :root {
+        }
+        html, body {
+            margin: 0;
+            font-size: 12px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1 {
+            margin: 0;
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 24px;
+        }
+        p {
+            margin: 0;
+            font-family: 'Noto Sans', sans-serif;
+        }
+        small {
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 10px;
+        }
+
+        .emoji {
+            font-size: 14px;
+        }
+        .code {
+            font-family: 'Source Code Pro', monospace;
+        }
+        
+        .root {
+            display: flex;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #isAI-bar {
+            animation: bar-anim 1s ease-out;
+            background-color: #D04242;
+        }
+        #isAI-donut {
+            animation: donut-anim 1s ease-out;
+            stroke: #D04242;
+            stroke-dasharray: 474px;
+        }
+        #isAI-donut-text {
+            fill: #D04242;
+        }
+        #isAI-donut-subtext {
+            fill: #D04242;
+        }
+        .isAI-color {
+            animation: color-anim 1s ease-out;
+        }
+
+        @keyframes bar-anim {
+            from {
+                background-color: #BDBDBD;
+                width: 0%;
+            }
+        }
+        @keyframes donut-anim {
+            from {
+                stroke: #BDBDBD;
+                stroke-dashoffset: 474px;
+            }
+        }
+        @keyframes color-anim {
+            from {
+                fill: #BDBDBD;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="root center">
+        <div class="row" style="
+            height: 200px;
+            background-color: white;">
+            <div class="column" style="
+                width: 220px;
+                border-right: 1px solid #BDBDBD;">
+                <div class="row" style="
+                    padding: 5px 10px;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-bottom: 1px solid #BDBDBD;">
+                    <p>
+                        https://test.com
+                    </p>
+                    <span class="emoji">
+                        🤐
+                    </span>
+                </div>
+                <div class="column" style="
+                    padding: 5px 10px;
+                    border-bottom: 1px solid #BDBDBD;">
+                    <div style="
+                        height: 10px;
+                        margin: 3px 0;
+                        background-color: #BDBDBD;
+                        border-radius: 3px;">
+                        <div id="isAI-bar" class="isAI-color" style="
+                            height: 100%;
+                            border-radius: 3px;">
+                        </div>
+                    </div>
+                    <small id="isAI-bar-text">
+                    </small>
+                </div>
+                <div class="column center" style="flex: 1;">
+                    <span class="code">
+                        isAI(<span id="isAI-type"></span>) =
+                    </span>
+                    <h1>
+                        "Possibly AI 🤔"
+                    </h1>
+                </div>
+                <div style="padding: 5px 10px;">
+                    <small class="code" style="color: #BDBDBD;">
+                        isAI() /*HackMIT*/
+                    </small>
+                </div>
+            </div>
+            <div class="center" style="width: 180px;">
+                <svg width="164" height="164" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                    </defs>
+                    <g>
+                        <circle r="75.376" cx="82" cy="82"
+                            stroke-width="12.223" stroke="#BDBDBD" fill="none" />
+                        <circle id="isAI-donut" class="isAI-color"
+                            r="75.376" cx="82" cy="82" transform="rotate(90, 82, 82)"
+                            stroke-width="12.223" fill="none" />
+                        <text x="82" y="78" id="isAI-donut-text" class="isAI-color"
+                            font-family="sans-serif" font-size="42px" font-weight="600"
+                            text-anchor="middle" dominant-baseline="middle">
+                        </text>
+                        <text x="82" y="108" id="isAI-donut-subtext" class="isAI-color"
+                            font-family="sans-serif" font-size="24px" font-weight="500"
+                            text-anchor="middle" dominant-baseline="middle">
+                            AI
+                        </text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <script>
+        const query = window.location.search;
+        const params = new URLSearchParams(query);
+        
+        const prob = parseFloat(params.get('prob'));
+        const net = parseFloat(params.get('net'));
+        const size = params.get('size');
+        const type = params.get('type');
+
+        document.getElementById('isAI-bar-text').innerHTML =
+            `${100*net}% according to ${size} other results`;
+        document.getElementById('isAI-donut-text').textContent =
+            `${100*prob}%`;
+
+        document.getElementById('isAI-type').innerHTML = type;
+
+        document.getElementById('isAI-bar').style.width =
+            `${100*net}%`;
+        document.getElementById('isAI-donut').style['stroke-dashoffset'] =
+            `${474-(474*prob)}px`;
+    </script>
+</body>
