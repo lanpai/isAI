@@ -17,7 +17,7 @@
     "background": {
         "service_worker": "background.js"
     },
-    "permissions": ["activeTab", "contextMenus"],
+    "permissions": ["activeTab", "contextMenus", "tabs"],
     "commands": {
         "_execute_action": {
           "suggested_key": {
