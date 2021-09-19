@@ -10,11 +10,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Oswald&family=Source+Code+Pro&display=swap" rel="preload" as="style">
 
+    <script src="stats.js"></script>
+
     <style>
         :root {
         }
         html, body {
             margin: 0;
+            overflow: hidden;
             font-size: 12px;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -102,12 +105,10 @@
     </style>
 </head>
 <body>
-    <div class="root center">
-        <div class="row" style="
-            height: 200px;
-            background-color: white;">
+    <div class="root center" style="background-color: white;">
+        <div class="row" style="height: 200px;">
             <div class="column" style="
-                width: 220px;
+                width: 320px;
                 border-right: 1px solid #BDBDBD;">
                 <div class="row" style="
                     padding: 5px 10px;
@@ -140,7 +141,7 @@
                         isAI(<span id="isAI-type"></span>) =
                     </span>
                     <h1>
-                        "Possibly AI 🤔"
+                        "<span id="isAI-conclusion"></span>"
                     </h1>
                 </div>
                 <div style="padding: 5px 10px;">
@@ -173,27 +174,4 @@
             </div>
         </div>
     </div>
-    <script>
-        const query = window.location.search;
-        const params = new URLSearchParams(query);
-        
-        const url = params.get('url');
-        const prob = parseFloat(params.get('prob'));
-        const net = parseFloat(params.get('net'));
-        const size = params.get('size');
-        const type = params.get('type');
-
-        document.getElementById('isAI-bar-text').innerHTML =
-            `${100*net}% according to ${size} other results`;
-        document.getElementById('isAI-donut-text').textContent =
-            `${100*prob}%`;
-
-        document.getElementById('isAI-url').innerHTML = url;
-        document.getElementById('isAI-type').innerHTML = type;
-
-        document.getElementById('isAI-bar').style.width =
-            `${100*net}%`;
-        document.getElementById('isAI-donut').style['stroke-dashoffset'] =
-            `${474-(474*prob)}px`;
-    </script>
 </body>

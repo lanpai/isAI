@@ -30,7 +30,7 @@
     "web_accessible_resources": [
         {
             "matches": ["<all_urls>"],
-            "resources": ["stats.html"]
+            "resources": ["stats.html","loading.html"]
         }
     ]
 }
