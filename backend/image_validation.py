@@ -4,7 +4,7 @@ import torchvision.transforms as transforms
 from PIL import Image
 from detectors.CNNDetection.networks.resnet import resnet50
 
-MODEL_PATH = './detectors/CNNDetection/weights/blur_jpg_prob0.5.pth'
+MODEL_PATH = './detectors/CNNDetection/weights/blur_jpg_prob0.1.pth'
 
 print('Initializing image validation...')
 
@@ -15,6 +15,7 @@ model.load_state_dict(state_dict['model'])
 model.eval()
 
 trans = transforms.Compose([
+    transforms.CenterCrop(224),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
 
