@@ -9,9 +9,9 @@ MODEL_PATH='./detectors/CNNDetection/weights/blur_jpg_prob0.5.pth'
 print('Initializing image validation...')
 
 model = resnet50(num_classes=1)
-state_dict = torch.load(MODEL_PATH)
+state_dict = torch.load(MODEL_PATH, map_location='cpu')
 model.load_state_dict(state_dict['model'])
-model.cuda()
+#model.cuda()
 model.eval()
 
 trans = transforms.Compose([
