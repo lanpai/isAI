@@ -8,6 +8,10 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.onClicked.addListener(async (clickData) => {
     // return console.log(clickData);
     // console.log(tab);
+    
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, { to: "loading" });
+    });
 
     let response;
     let type;
@@ -23,7 +27,7 @@ chrome.runtime.onInstalled.addListener(() => {
           body: data,
         })
       ).json();
-      type = "image";
+      type = "Image";
       console.log(response);
     } else if (clickData.selectionText) {
       var data = new FormData();
@@ -34,7 +38,7 @@ chrome.runtime.onInstalled.addListener(() => {
           body: data,
         })
       ).json();
-      type = "text";
+      type = "Text";
       console.log(response);
     }
     // send the response details to content-script.js to render iframe
