@@ -1,8 +1,18 @@
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
-    id: "sampleContextMenu",
-    title: "Check if isAI()",
-    contexts: ["image", "video", "selection"],
+    id: "imageContextMenu",
+    title: "Check isAI(Image)",
+    contexts: ["image"],
+  });
+  chrome.contextMenus.create({
+    id: "videoContextMenu",
+    title: "Check isAI(Video)",
+    contexts: ["video"],
+  });
+  chrome.contextMenus.create({
+    id: "selectionContextMenu",
+    title: "Check isAI(Text)",
+    contexts: ["selection"],
   });
 
   chrome.contextMenus.onClicked.addListener(async (clickData) => {
@@ -37,6 +47,9 @@ chrome.runtime.onInstalled.addListener(() => {
       ).json();
       type = "Text";
       console.log(response);
+    }
+    else if (clickData.mediaType === "video") {
+      console.log(clickData);
     }
     
     // send the response details to content-script.js to render iframe

@@ -4,6 +4,23 @@ chrome.runtime.sendMessage({ to: 'getAverage', url: window.location.origin }, (r
   console.log(res);
   window.isAI_net = res.avg;
   window.isAI_count = res.count;
+
+  if (res.avg >= 0.2) {
+    isNew = false;
+    let frame = document.getElementById('isAI-modal')
+
+    if (!frame) {
+      isNew = true;
+      frame = document.createElement('iframe');
+      initFrame(frame);
+    }
+
+    frame.src = chrome.runtime.getURL(
+        `/stats.html?prob=${window.isAI_net}&net=${window.isAI_net}&size=${window.isAI_count}&url=${window.location.origin}&type=Peers`)
+
+    if (isNew)
+      document.body.prepend(frame);
+  }
 });
 
 
