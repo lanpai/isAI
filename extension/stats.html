@@ -114,9 +114,7 @@
                     justify-content: space-between;
                     align-items: center;
                     border-bottom: 1px solid #BDBDBD;">
-                    <p>
-                        https://test.com
-                    </p>
+                    <p id="isAI-url"></p>
                     <span class="emoji">
                         🤐
                     </span>
@@ -179,6 +177,7 @@
         const query = window.location.search;
         const params = new URLSearchParams(query);
         
+        const url = params.get('url');
         const prob = parseFloat(params.get('prob'));
         const net = parseFloat(params.get('net'));
         const size = params.get('size');
@@ -189,6 +188,7 @@
         document.getElementById('isAI-donut-text').textContent =
             `${100*prob}%`;
 
+        document.getElementById('isAI-url').innerHTML = url;
         document.getElementById('isAI-type').innerHTML = type;
 
         document.getElementById('isAI-bar').style.width =
