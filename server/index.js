@@ -57,14 +57,19 @@ app.get("/", (req, res) => {
 app.post("/add", async (req, res) => {
   const { url, prob } = req.body;
 
-  await Probabilities.create({
-    url,
-    prob,
-  });
+  try {
+    await Probabilities.create({
+      url,
+      prob,
+    });
 
-  res.status(200).json({
-    body: "success",
-  });
+    res.status(200).json({
+      body: "success",
+    });
+  }
+  catch (err) {
+    res.status(200).json({ body: "invalid" });
+  }
 });
 
 app.post("/getAverage", async (req, res) => {
@@ -77,6 +82,9 @@ app.post("/getAverage", async (req, res) => {
     },
     attributes: ["prob"],
   });
+
+  if (count === 0)
+    return res.status(200).json({ body: "invalid" });
 
   let sum = 0;
   for (row of rows) sum += row.prob;
