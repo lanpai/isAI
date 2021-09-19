@@ -4,7 +4,8 @@ function initFrame(frame) {
   frame.height = '200px';
   frame.id = 'isAI-modal';
 
-  frame.style.position = 'absolute';
+  frame.style.position = 'fixed';
+  frame.style.zIndex = '1000000';
   frame.style.top = '10px';
   frame.style.right = '10px';
   frame.style.borderRadius = '5px';
