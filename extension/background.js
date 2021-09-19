@@ -6,7 +6,7 @@ chrome.runtime.onInstalled.addListener(() => {
   });
 
   chrome.contextMenus.onClicked.addListener(async (clickData) => {
-    // console.log(clickData);
+    // return console.log(clickData);
     // console.log(tab);
 
     let response;
@@ -43,6 +43,7 @@ chrome.runtime.onInstalled.addListener(() => {
         to: "content-script",
         prob: response.prob,
         type,
+        pageUrl: clickData.pageUrl,
       });
     });
   });
