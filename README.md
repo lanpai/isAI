@@ -25,3 +25,22 @@ The chrome extension [isAI()](https://github.com/lanpai/isAI) is a browser exten
 Our team used open-source research papers/projects, [CNN-generated images are surprisingly easy to spot... for now](https://arxiv.org/abs/1912.11035) and [CTRL - A Conditional Transformer Language Model for Controllable Generation](https://arxiv.org/abs/1909.05858), to detect the AI-generated data. However, we improved accuracy and performance of the detection by selectively increasing the sample area cropping image on key target areas to limit model’s runtime, which resulted in incredibly higher consistency.
 
 We used HTML5, CSS, JavaScript, Chrome API on the front end, Python, Flask, Pytorch, Torchvision for back end ML implementation, and Node.js, Express.JS, CockroachDB (sponsored by Cockroach Labs) for the database server.
+
+---
+
+## How to run
+- clone the repository
+- open terminal, cd into ```/backend```, and run ```pip install -r requirements``` & ```flask run```
+- open second tab on terminal, cd into ```/server```, and run ```npm install``` & ```npm run dev```
+- open chrome browser, go to [chrome://extensions](chrome://extensions), click "Load unpacked" button, and load ```/extensions``` folder
+- go to CockroachDB, sign up, create a cluster, click "Connect" button, navigate to "Connection parameters", and make ```.env``` file in ```/server```folder of the project using the parameters information 
+ ```
+DATABASE_USER=[username]
+DATABASE_HOST=[host]
+DATABASE_PORT=26257
+DATABASE_NAME=[database]
+DATABASE_PASSWORD=[password]
+```
+- finally, browse to any website and check if the media isAI()!
+  - For image detection, right click on an image and click ```checkisAI(imaeg)```
+  - For text detectio, highlight texts (accuracy increases with the length of the text), right click on the highlighted texts, and click ```checkisAI(text)```
